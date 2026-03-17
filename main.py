@@ -378,8 +378,8 @@ if __name__ == "__main__":
     import uvicorn
 
     # Prevent accidental `streamlit run main.py` from blocking forever.
-    if os.environ.get("STREAMLIT_SERVER_PORT"):
-        print("This file is the FastAPI app. Run: streamlit run streamlit_app.py")
-        sys.exit(0)
+    # if os.environ.get("STREAMLIT_SERVER_PORT"):
+    #     print("This file is the FastAPI app. Run: streamlit run streamlit_app.py")
+    #     sys.exit(0)
 
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
