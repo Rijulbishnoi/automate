@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Broker Payout Console</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="page-wrap">
+    <section class="hero">
+      <h1>Broker Payout Console</h1>
+      <p>Upload grid workbook, run engine, inspect source/output details, and download generated files.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Run Pipeline</h2>
+      <form action="/run" method="post" enctype="multipart/form-data" class="run-form">
+        <label>
+          Upload .xlsx or .csv file
+          <input type="file" name="file" accept=".xlsx,.csv" required />
+        </label>
+        <p class="hint">`.xlsx`: preview + pipeline run. `.csv`: preview-only mode.</p>
+
+        <div class="grid-two">
+          <label>
+            Engine
+            <select name="engine">
+              <option value="legacy">Legacy</option>
+              <option value="pandas">Pandas</option>
+            </select>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" name="compare_engine" />
+            Enable parity compare (legacy vs pandas)
+          </label>
+        </div>
+
+        <div class="grid-two">
+          <label>
+            Effect Start (optional)
+            <input type="date" name="start_date" />
+          </label>
+          <label>
+            Effect End (optional)
+            <input type="date" name="end_date" />
+          </label>
+        </div>
+
+        <button type="submit">Run</button>
+      </form>
+    </section>
+
+    {% if error %}
+    <section class="panel error">
+      <h3>Run Error</h3>
+      <p>{{ error }}</p>
+    </section>
+    {% endif %}
+
+    {% if run and run.notice %}
+    <section class="panel notice">
+      <h3>Notice</h3>
+      <p>{{ run.notice }}</p>
+    </section>
+    {% endif %}
+
+    {% if run %}
+    <section class="panel">
+      <h2>Run Summary</h2>
+      <div class="metrics">
+        <article>
+          <h4>Run ID</h4>
+          <p>{{ run.run_id }}</p>
+        </article>
+        <article>
+          <h4>Engine</h4>
+          <p>{{ run.engine|upper }}</p>
+        </article>
+        <article>
+          <h4>Period</h4>
+          <p>{{ run.effect_start }} to {{ run.effect_end }}</p>
+        </article>
+        {% if run.summary %}
+        <article>
+          <h4>Rows Generated</h4>
+          <p>{{ run.summary.rows_generated }}</p>
+        </article>
+        <article>
+          <h4>Files Written</h4>
+          <p>{{ run.summary.files_written }}</p>
+        </article>
+        <article>
+          <h4>HITL Items</h4>
+          <p>{{ run.summary.hitl_count }}</p>
+        </article>
+        {% endif %}
+      </div>
+
+      {% if run.summary and run.summary.parity %}
+      <div class="parity {{ 'ok' if run.summary.parity.ok else 'bad' }}">
+        <h3>Parity Check: {{ 'PASS' if run.summary.parity.ok else 'FAIL' }}</h3>
+        <ul>
+          {% for line in run.summary.parity.messages %}
+          <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </section>
+
+    <section class="panel">
+      <h2>Input File Details</h2>
+      <p class="path">{{ run.input_path }}</p>
+      <table class="meta-table">
+        <thead>
+          <tr>
+            <th>Sheet</th>
+            <th>Rows</th>
+            <th>Cols</th>
+            <th>Preview</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sheet in run.input_details.sheets %}
+          <tr>
+            <td>{{ sheet.name }}</td>
+            <td>{{ sheet.rows }}</td>
+            <td>{{ sheet.cols }}</td>
+            <td>
+              <a href="/run/{{ run.run_id }}?input_sheet={{ sheet.name|urlencode }}{% if selected_output %}&output_file={{ selected_output|urlencode }}{% endif %}">Open</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>Input Preview: {{ selected_input_sheet }}</h3>
+      <div class="table-wrap">{{ input_preview_html|safe }}</div>
+    </section>
+
+    <section class="panel">
+      <h2>Generated Output Files</h2>
+      <p class="path">{{ run.output_dir }}</p>
+
+      <table class="meta-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Rows</th>
+            <th>Cols</th>
+            <th>Size (KB)</th>
+            <th>Preview</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in manifest %}
+          <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.rows }}</td>
+            <td>{{ row.cols }}</td>
+            <td>{{ row.size_kb }}</td>
+            <td>
+              <a href="/run/{{ run.run_id }}?output_file={{ row.name|urlencode }}{% if selected_input_sheet %}&input_sheet={{ selected_input_sheet|urlencode }}{% endif %}">Open</a>
+            </td>
+            <td>
+              <a href="/download/{{ run.run_id }}/{{ row.name|urlencode }}">Download</a>
+            </td>
+          </tr>
+          {% endfor %}
+          {% if not manifest %}
+          <tr>
+            <td colspan="6">No output files generated.</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+
+      <h3>Output Preview: {{ selected_output }}</h3>
+      <div class="table-wrap">{{ output_preview_html|safe }}</div>
+    </section>
+
+    <section class="panel">
+      <h2>Run JSON</h2>
+      <pre>{{ run | tojson(indent=2) }}</pre>
+    </section>
+    {% endif %}
+  </main>
+</body>
+</html>

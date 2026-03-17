@@ -1,0 +1,57 @@
+{
+  "total_items": 2,
+  "items": [
+    {
+      "parsed": {
+        "category": "All",
+        "cc_range": null,
+        "fuel": "Petrol",
+        "manufacturers": {
+          "include": [],
+          "exclude": []
+        },
+        "duplication_required": false,
+        "confidence_score": 0.9,
+        "canonical_form": "3W_GT_350",
+        "original_input": "3W > 350",
+        "warnings": [
+          "Ambiguous segment \u2014 defaulting to ALL/PETROL"
+        ]
+      },
+      "context": {
+        "cluster": "BR_Good",
+        "segment": "3W > 350",
+        "sheet": "TW 1+1 & SATP"
+      },
+      "reason": [
+        "Ambiguous segment \u2014 defaulting to ALL/PETROL"
+      ]
+    },
+    {
+      "parsed": {
+        "category": "All",
+        "cc_range": null,
+        "fuel": "Petrol",
+        "manufacturers": {
+          "include": [],
+          "exclude": []
+        },
+        "duplication_required": false,
+        "confidence_score": 0.9,
+        "canonical_form": "3W_GT_350",
+        "original_input": "3W > 350",
+        "warnings": [
+          "Ambiguous segment \u2014 defaulting to ALL/PETROL"
+        ]
+      },
+      "context": {
+        "cluster": "BR_Good",
+        "segment": "3W > 350",
+        "sheet": "TW 1+1 & SATP"
+      },
+      "reason": [
+        "Ambiguous segment \u2014 defaulting to ALL/PETROL"
+      ]
+    }
+  ]
+}

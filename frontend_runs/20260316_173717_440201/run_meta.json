@@ -1,0 +1,104 @@
+{
+  "run_id": "20260316_173717_440201",
+  "engine": "pandas",
+  "compare_engine": false,
+  "effect_start": "2026-02-01",
+  "effect_end": "2026-02-28",
+  "input_path": "/home/tele/Desktop/autoo/frontend_runs/20260316_173717_440201/input/HM_DIGIT_FEB26_GRID.xlsx",
+  "output_dir": "/home/tele/Desktop/autoo/frontend_runs/20260316_173717_440201/output",
+  "input_details": {
+    "sheet_count": 15,
+    "sheets": [
+      {
+        "name": "CV Grid (excl. HCV)",
+        "rows": 822,
+        "cols": 8
+      },
+      {
+        "name": "HCV GRID",
+        "rows": 628,
+        "cols": 37
+      },
+      {
+        "name": "TAXI Segments and Location wise",
+        "rows": 588,
+        "cols": 10
+      },
+      {
+        "name": "4W COMP + SAOD",
+        "rows": 31,
+        "cols": 6
+      },
+      {
+        "name": "4W SATP",
+        "rows": 320,
+        "cols": 7
+      },
+      {
+        "name": "4W New Business 1+3",
+        "rows": 31,
+        "cols": 9
+      },
+      {
+        "name": "TW 1+1 & SATP",
+        "rows": 360,
+        "cols": 11
+      },
+      {
+        "name": "2W Grid 5+5",
+        "rows": 1199,
+        "cols": 11
+      },
+      {
+        "name": "TW SAOD with Flexi Options",
+        "rows": 140,
+        "cols": 11
+      },
+      {
+        "name": "TW 1+5",
+        "rows": 1199,
+        "cols": 7
+      },
+      {
+        "name": "School & Staff Bus ",
+        "rows": 65,
+        "cols": 11
+      },
+      {
+        "name": "School & Staff Bus RTO",
+        "rows": 1887,
+        "cols": 12
+      },
+      {
+        "name": "CV RTO Mapping",
+        "rows": 1923,
+        "cols": 13
+      },
+      {
+        "name": "2W RTO's",
+        "rows": 1590,
+        "cols": 5
+      },
+      {
+        "name": "4W  RTO",
+        "rows": 1724,
+        "cols": 6
+      }
+    ]
+  },
+  "summary": {
+    "rows_generated": 3600,
+    "files_written": 20,
+    "hitl_count": 0,
+    "hitl_path": null,
+    "sheets_detected": {
+      "rto_2w": "2W RTO's",
+      "tw_1plus1_satp": "TW 1+1 & SATP",
+      "tw_5plus5": "2W Grid 5+5",
+      "tw_saod": "TW SAOD with Flexi Options",
+      "tw_1plus5": "TW 1+5"
+    },
+    "parity": null
+  },
+  "error": null
+}

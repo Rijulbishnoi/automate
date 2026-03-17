@@ -1,0 +1,9 @@
+openpyxl
+pandas
+pydantic
+litellm
+pytest
+fastapi
+uvicorn
+jinja2
+python-multipart

@@ -1,0 +1,140 @@
+{
+  "baseline": {
+    "input": "/home/tele/Desktop/autoo/test_data/qa_cases/baseline.xlsx",
+    "legacy_exit_code": 0,
+    "legacy_metrics": {
+      "total_rows": 167,
+      "hitl_items": 0,
+      "files_written": 4,
+      "ungrouped_rows": 0
+    },
+    "compare_exit_code": 2,
+    "compare_metrics": {
+      "status": "fail",
+      "row_count_mismatch": {
+        "legacy": 167,
+        "pandas": 163
+      },
+      "group_count_mismatch": [
+        {
+          "group": "Maharashtra",
+          "legacy": 36,
+          "pandas": 32
+        }
+      ],
+      "hitl_auto_mismatch": {
+        "legacy": 120,
+        "pandas": 116
+      }
+    }
+  },
+  "cluster_whitespace_case": {
+    "input": "/home/tele/Desktop/autoo/test_data/qa_cases/cluster_whitespace_case.xlsx",
+    "legacy_exit_code": 0,
+    "legacy_metrics": {
+      "total_rows": 167,
+      "hitl_items": 0,
+      "files_written": 4,
+      "ungrouped_rows": 0
+    },
+    "compare_exit_code": 2,
+    "compare_metrics": {
+      "status": "fail",
+      "row_count_mismatch": {
+        "legacy": 167,
+        "pandas": 163
+      },
+      "group_count_mismatch": [
+        {
+          "group": "Maharashtra",
+          "legacy": 36,
+          "pandas": 32
+        }
+      ],
+      "hitl_auto_mismatch": {
+        "legacy": 120,
+        "pandas": 116
+      }
+    }
+  },
+  "segment_spaced_sc_ev": {
+    "input": "/home/tele/Desktop/autoo/test_data/qa_cases/segment_spaced_sc_ev.xlsx",
+    "legacy_exit_code": 0,
+    "legacy_metrics": {
+      "total_rows": 165,
+      "hitl_items": 0,
+      "files_written": 4,
+      "ungrouped_rows": 0
+    },
+    "compare_exit_code": 2,
+    "compare_metrics": {
+      "status": "fail",
+      "row_count_mismatch": {
+        "legacy": 165,
+        "pandas": 161
+      },
+      "group_count_mismatch": [
+        {
+          "group": "Maharashtra",
+          "legacy": 36,
+          "pandas": 32
+        }
+      ],
+      "hitl_auto_mismatch": {
+        "legacy": 118,
+        "pandas": 114
+      }
+    }
+  },
+  "invalid_cd2_text": {
+    "input": "/home/tele/Desktop/autoo/test_data/qa_cases/invalid_cd2_text.xlsx",
+    "legacy_exit_code": 0,
+    "legacy_metrics": {
+      "total_rows": 166,
+      "hitl_items": 0,
+      "files_written": 4,
+      "ungrouped_rows": 0
+    },
+    "compare_exit_code": 2,
+    "compare_metrics": {
+      "status": "fail",
+      "row_count_mismatch": {
+        "legacy": 166,
+        "pandas": 162
+      },
+      "group_count_mismatch": [
+        {
+          "group": "Maharashtra",
+          "legacy": 36,
+          "pandas": 32
+        }
+      ],
+      "hitl_auto_mismatch": {
+        "legacy": 119,
+        "pandas": 115
+      }
+    }
+  },
+  "unknown_mh_rto_prefix": {
+    "input": "/home/tele/Desktop/autoo/test_data/qa_cases/unknown_mh_rto_prefix.xlsx",
+    "legacy_exit_code": 0,
+    "legacy_metrics": {
+      "total_rows": 167,
+      "hitl_items": 0,
+      "files_written": 3,
+      "ungrouped_rows": 36
+    },
+    "compare_exit_code": 2,
+    "compare_metrics": {
+      "status": "fail",
+      "row_count_mismatch": {
+        "legacy": 167,
+        "pandas": 163
+      },
+      "hitl_auto_mismatch": {
+        "legacy": 120,
+        "pandas": 116
+      }
+    }
+  }
+}
