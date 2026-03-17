@@ -857,6 +857,7 @@ def rows_fingerprint(rows):
     return Counter(normalize_row_for_compare(row) for row in rows)
 
 
+
 def normalize_hitl_item(item):
     """Normalize HITL queue item for parity comparison."""
     parsed = item.get("parsed", {})
