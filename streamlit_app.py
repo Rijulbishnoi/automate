@@ -185,11 +185,11 @@ def main():
     col_c.metric("Sheets/Views", details["sheet_count"])
 
     st.subheader("Input Details")
-    st.dataframe(pd.DataFrame(details["sheets"]), width=True)
+    st.dataframe(pd.DataFrame(details["sheets"]), use_container_width=True)
 
     sheet_names = [s["sheet"] for s in details["sheets"]]
     input_sheet = st.selectbox("Preview input", sheet_names)
-    st.dataframe(preview_input(input_path, input_sheet, nrows=25), width=True)
+    st.dataframe(preview_input(input_path, input_sheet, nrows=25), use_container_width=True)
 
     pipeline = get_pipeline()
     auto_start, auto_end = pipeline.auto_detect_dates(str(input_path))
@@ -251,7 +251,7 @@ def main():
 
     manifest_df = pd.DataFrame(result["manifest"])
     st.subheader("Generated Files")
-    st.dataframe(manifest_df[["name", "rows", "cols", "size_kb"]], width=True)
+    st.dataframe(manifest_df[["name", "rows", "cols", "size_kb"]], use_container_width=True)
 
     if result["manifest"]:
         names = [x["name"] for x in result["manifest"]]
@@ -260,7 +260,7 @@ def main():
         out_path = Path(out_meta["path"])
 
         preview_df = pd.read_excel(out_path, nrows=30)
-        st.dataframe(preview_df, width=True)
+        st.dataframe(preview_df, use_container_width=True)
 
         c1, c2 = st.columns(2)
         c1.download_button(
