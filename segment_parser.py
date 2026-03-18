@@ -312,8 +312,20 @@ def parse_segment(raw_input: str,
             confidence -= 0.15
 
     # ── DETECT FUEL TYPE ──
+    # Business rule:
+    # - KW/power bands => Electric
+    # - MC/CC engine-displacement bands => Petrol
+    # - Explicit EV/ELECTRIC => Electric
+    # KW takes precedence if mixed tokens appear in the same segment.
+    has_kw = "KW" in s_upper
+    has_mc_or_cc = bool(re.search(r"\b(MC|CC|BIKE)\b", s_upper))
+
     fuel = FuelType.PETROL
-    if "EV" in s_upper or "ELECTRIC" in s_upper or "KW" in s_upper:
+    if has_kw:
+        fuel = FuelType.ELECTRIC
+    elif has_mc_or_cc:
+        fuel = FuelType.PETROL
+    elif "EV" in s_upper or "ELECTRIC" in s_upper:
         fuel = FuelType.ELECTRIC
 
     # ── DETECT CC RANGE ──

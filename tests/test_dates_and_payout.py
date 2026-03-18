@@ -1,7 +1,7 @@
 from datetime import datetime
 import calendar
 
-from pipeline import auto_detect_dates, cd2_to_payout
+from pipeline import auto_detect_dates, cd2_to_payout, get_state_from_rtos
 
 
 def test_auto_detect_dates_feb26():
@@ -14,6 +14,12 @@ def test_auto_detect_dates_mar2026():
     start, end = auto_detect_dates("my_grid_mar2026.xlsx")
     assert start == "2026-03-01"
     assert end == "2026-03-31"
+
+
+def test_auto_detect_dates_jan_apostrophe_26():
+    start, end = auto_detect_dates("Digit Jan'26_h&M.xlsx")
+    assert start == "2026-01-01"
+    assert end == "2026-01-31"
 
 
 def test_auto_detect_dates_fallback_current_month():
@@ -46,3 +52,8 @@ def test_cd2_to_payout_special_values():
 
 def test_cd2_to_payout_invalid_string():
     assert cd2_to_payout("abc") is None
+
+
+def test_get_state_from_rtos_multiple_prefixes():
+    states = get_state_from_rtos(["AP01", "TS09", "AP16", "AR03"])
+    assert states == "ANDHRA PRADESH, TELANGANA, ARUNACHAL PRADESH"

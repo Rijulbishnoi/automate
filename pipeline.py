@@ -142,9 +142,9 @@ def auto_detect_dates(source_path):
         "JUL": 7, "AUG": 8, "SEP": 9, "OCT": 10, "NOV": 11, "DEC": 12,
     }
 
-    # Try to find month + year pattern like FEB26, MAR2026
+    # Try to find month + year pattern like FEB26, MAR2026, JAN'26
     for month_str, month_num in month_map.items():
-        pattern = rf"{month_str}[\s_-]*(\d{{2,4}})"
+        pattern = rf"{month_str}[\s_\-'\u2019]*(\d{{2,4}})"
         match = re.search(pattern, filename)
         if match:
             year_str = match.group(1)
@@ -309,8 +309,22 @@ def get_rto_string(rto_list):
 def get_state_from_rtos(rto_list):
     if not rto_list:
         return ""
-    prefix = re.match(r"([A-Z]+)", rto_list[0])
-    return RTO_PREFIX_TO_STATE.get(prefix.group(1), "") if prefix else ""
+    states = []
+    seen = set()
+
+    for rto in rto_list:
+        if not rto:
+            continue
+        prefix = re.match(r"([A-Z]+)", str(rto).strip().upper())
+        if not prefix:
+            continue
+        code = prefix.group(1)
+        state = RTO_PREFIX_TO_STATE.get(code)
+        if state and state not in seen:
+            seen.add(state)
+            states.append(state)
+
+    return ", ".join(states)
 
 def make_rule_name(cluster, biz_type, cover_type):
     cluster_clean = cluster.upper().replace(" ", "_").replace(",", "").replace("+", "_")
@@ -856,8 +870,6 @@ def rows_fingerprint(rows):
     """Create multiset fingerprint for order-insensitive row comparison."""
     return Counter(normalize_row_for_compare(row) for row in rows)
 
-
-
 def normalize_hitl_item(item):
     """Normalize HITL queue item for parity comparison."""
     parsed = item.get("parsed", {})
@@ -867,7 +879,6 @@ def normalize_hitl_item(item):
         str(parsed.get("canonical_form", "")).strip(),
         json.dumps(context, sort_keys=True),
     )
-
 
 def compare_engine_outputs(legacy_rows, pandas_rows, legacy_hitl, pandas_hitl):
     """Compare legacy vs pandas outputs and HITL routing for strict parity."""
